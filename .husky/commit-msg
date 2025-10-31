@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Obtener el mensaje de commit
+commit_message=$(cat "$1")
+
+# Definir la expresión regular para validar el formato
+regex="^([A-Z]{2,4})-([0-9]{1,4}) (.+)$"
+
+# Validar el mensaje de commit usando 'expr' para la comparación
+if ! echo "$commit_message" | grep -qE "$regex"; then
+    echo "Error: El mensaje de commit debe seguir el formato 'ZZZZ-YYYY breve descripción'."
+    echo "Ejemplo: 'SUS-001 se desarrollo logica del registro'"
+    exit 1
+fi
+
+# Extraer la descripción
+# description=$(echo "$commit_message" | sed -E "s/$regex/\3/")
+
+# Validar la longitud de la descripción
+# if [ ${#description} -gt 80 ]; then
+#   echo "Error: La breve descripción no puede tener más de 80 caracteres."
+#   exit 1
+# fi
