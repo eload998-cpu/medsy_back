@@ -1,18 +1,18 @@
 import { Entity, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { Role } from './role.entity';
+import { User } from './user.entity';
 import { Permission } from './permission.entity';
 
-@Entity({ schema: 'app', name: 'role_permissions' })
-export class RolePermission {
-  @PrimaryColumn('uuid', { name: 'role_id' })
-  roleId!: string;
+@Entity({ schema: 'app', name: 'user_permissions' })
+export class UserPermission {
+  @PrimaryColumn('uuid', { name: 'user_id' })
+  userId!: string;
 
   @PrimaryColumn('uuid', { name: 'permission_id' })
   permissionId!: string;
 
-  @ManyToOne(() => Role, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'role_id' })
-  role?: Role;
+  @ManyToOne(() => User, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'user_id' })
+  user?: User;
 
   @ManyToOne(() => Permission, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'permission_id' })

@@ -3,8 +3,11 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Tenant } from './tenant.entity';
 
 @Index(['tenantId', 'name'], { unique: true })
 @Entity({ schema: 'app', name: 'roles' })
@@ -14,6 +17,10 @@ export class Role {
 
   @Column({ type: 'uuid', name: 'tenant_id', nullable: true })
   tenantId!: string | null;
+
+  @ManyToOne(() => Tenant, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'tenant_id' })
+  tenant?: Tenant | null;
 
   @Column({ type: 'varchar', length: 255 })
   name!: string;
