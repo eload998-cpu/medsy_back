@@ -12,6 +12,14 @@ import { Patient } from './patient.entity';
 import { Clinician } from './clinician.entity';
 import { Status } from './status.entity';
 
+export enum EncounterType {
+  CONSULTATION = 'consultation',
+  CONTROL = 'control',
+  EMERGENCY = 'emergency',
+  PROCEDURE = 'procedure',
+  TELEMEDICINE = 'telemedicine',
+}
+
 @Entity({ schema: 'app', name: 'encounters' })
 export class Encounter {
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
@@ -41,7 +49,11 @@ export class Encounter {
   @Column({ type: 'timestamptz', name: 'occurred_at' })
   occurredAt!: Date;
 
-  @Column({ type: 'enum', enumName: 'encounter_type_enum' })
+  @Column({
+    type: 'enum',
+    enum: EncounterType,
+    enumName: 'encounter_type_enum',
+  })
   type!: string;
 
   @Column({ type: 'jsonb', default: () => "'{}'::jsonb" })

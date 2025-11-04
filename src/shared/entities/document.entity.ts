@@ -13,6 +13,14 @@ import { Encounter } from './encounter.entity';
 import { Status } from './status.entity';
 import { User } from './user.entity';
 
+export enum DocType {
+  ULTRASOUND = 'ultrasound',
+  EXAM = 'exam',
+  TREATMENT = 'treatment',
+  NOTE = 'note',
+  OTHER = 'other',
+}
+
 @Entity({ schema: 'app', name: 'documents' })
 export class Document {
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
@@ -39,7 +47,7 @@ export class Document {
   @JoinColumn({ name: 'encounter_id' })
   encounter?: Encounter | null;
 
-  @Column({ type: 'enum', enumName: 'doc_type_enum' })
+  @Column({ type: 'enum', enum: DocType, enumName: 'doc_type_enum' })
   type!: string;
 
   @Column({ type: 'text', nullable: true })

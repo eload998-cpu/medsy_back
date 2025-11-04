@@ -11,6 +11,13 @@ import {
 import { Tenant } from './tenant.entity';
 import { User } from './user.entity';
 
+export enum SexEnum {
+  FEMALE = 'female',
+  MALE = 'male',
+  OTHER = 'other',
+  UNKNOWN = 'unknown',
+}
+
 @Entity({ schema: 'app', name: 'patients' })
 @Index(['tenantId', 'code'], { unique: true })
 export class Patient {
@@ -33,7 +40,7 @@ export class Patient {
   @Column({ type: 'text', name: 'last_name', nullable: true })
   lastName?: string | null;
 
-  @Column({ type: 'enum', enumName: 'sex_enum', nullable: true })
+  @Column({ type: 'enum', enum: SexEnum, enumName: 'sex_enum', nullable: true })
   sex?: string | null;
 
   @Column({ type: 'date', name: 'birth_date', nullable: true })
